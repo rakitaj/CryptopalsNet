@@ -4,13 +4,11 @@ using System.Text;
 
 namespace CryptopalsNet.Core
 {
-    public class CryptoConstants
+    public static class CryptoConstants
     {
-        public Dictionary<char, double> LetterFrequency
-        {
-            get
-            {
-                return new Dictionary<char, double> {
+        public static string AsciiChars => "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        public static Dictionary<char, double> LetterFrequency => new Dictionary<char, double> {
                     { 'E', 12.0 },
                     { 'T', 9.10 },
                     { 'A', 8.12 },
@@ -37,7 +35,5 @@ namespace CryptopalsNet.Core
                     { 'Q', 0.11 },
                     { 'J', 0.10 },
                     { 'Z', 0.07 } };
-            }
-        }
     }
 }

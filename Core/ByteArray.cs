@@ -32,6 +32,11 @@ namespace CryptopalsNet.Core
             return result;
         }
 
+        public override string ToString()
+        {
+            return System.Text.Encoding.ASCII.GetString(this.Bytes.ToArray());
+        }
+
         public string ToBase64()
         {
             return Convert.ToBase64String(this.Bytes.ToArray());
@@ -73,15 +78,20 @@ namespace CryptopalsNet.Core
             return new ByteArray(result);
         }
 
-        public ByteArray SingleCharacterXOR(char xor)
+        public ByteArray SingleCharacterXOR(int xor)
         {
             var result = new List<byte>();
-            foreach(var b in this.Bytes)
+            foreach (var b in this.Bytes)
             {
                 int xorByte = b ^ xor;
                 result.Add(Convert.ToByte(xorByte));
             }
             return new ByteArray(result);
+        }
+
+        public ByteArray SingleCharacterXOR(char xor)
+        {
+            return this.SingleCharacterXOR((int)xor);
         }
     }
 }

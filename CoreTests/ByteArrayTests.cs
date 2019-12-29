@@ -37,5 +37,12 @@ namespace CoreTests
             var actual = ByteArray.FromHex(hex);
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase("$Nil !", new byte[] { 36, 78, 105, 108, 32, 33})]
+        public void ByteArray_ToString(string expected, byte[] bytes)
+        {
+            var byteArray = new ByteArray(bytes);
+            Assert.AreEqual(expected, byteArray.ToString());
+        }
     }
 }
