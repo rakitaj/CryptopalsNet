@@ -58,7 +58,7 @@ namespace CryptopalsNet.Core
             return new ByteArray(bytes);
         }
 
-        public string XorAgainst(ByteArray other)
+        public HexString XorAgainst(ByteArray other)
         {
             var result = new List<byte>();
             for(int i = 0; i < this.Bytes.Count; i++)
@@ -67,7 +67,7 @@ namespace CryptopalsNet.Core
                 result.Add(Convert.ToByte(xorByte));
             }
             var xorByteArray = new ByteArray(result);
-            return xorByteArray.ToHex();
+            return new HexString(xorByteArray.ToHex());
         }
     }
 }
