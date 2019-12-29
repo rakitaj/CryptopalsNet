@@ -5,16 +5,18 @@ namespace CoreTests
 {
     public class ByteArrayTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         public void ByteArray_GetHashCode()
         {
             var byteArray = new ByteArray(new byte[] { 100, 2, 10 });
             Assert.AreEqual(100 * 2 * 10, byteArray.GetHashCode());
+        }
+
+        [Test]
+        public void ByteArray_GetHashCode_WithOverflow()
+        {
+            var byteArray = new ByteArray(new byte[] { 255, 255, 255, 255 });
+            Assert.AreEqual(-66716671, byteArray.GetHashCode());
         }
 
         [Test]

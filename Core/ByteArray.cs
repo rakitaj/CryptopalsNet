@@ -25,7 +25,7 @@ namespace CryptopalsNet.Core
         public override int GetHashCode()
         {
             int result = 1;
-            foreach(var b in this.Bytes)
+            foreach (var b in this.Bytes)
             {
                 result *= b;
             }
@@ -40,7 +40,7 @@ namespace CryptopalsNet.Core
         public static ByteArray FromHex(string hex)
         {
             var bytes = new List<byte>();
-            for(int i = 0; i < hex.Length; i = i + 2)
+            for (int i = 0; i < hex.Length; i = i + 2)
             {
                 var substring = hex.Substring(i, 2);
                 bytes.Add(Convert.ToByte(substring, 16));
