@@ -13,7 +13,7 @@ namespace CryptopalsNet.Core
             this.Bytes = bytes.ToList();
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is ByteArray other)
             {
@@ -37,6 +37,16 @@ namespace CryptopalsNet.Core
             return Convert.ToBase64String(this.Bytes.ToArray());
         }
 
+        public string ToHex()
+        {
+            string result = string.Empty;
+            foreach(var b in this.Bytes)
+            {
+                result += b.ToString("x2");
+            }
+            return result;
+        }
+
         public static ByteArray FromHex(string hex)
         {
             var bytes = new List<byte>();
@@ -46,6 +56,18 @@ namespace CryptopalsNet.Core
                 bytes.Add(Convert.ToByte(substring, 16));
             }
             return new ByteArray(bytes);
+        }
+
+        public string XorAgainst(ByteArray other)
+        {
+            var result = new List<byte>();
+            for(int i = 0; i < this.Bytes.Count; i++)
+            {
+                int xorByte = this.Bytes[i] ^ other.Bytes[i];
+                result.Add(Convert.ToByte(xorByte));
+            }
+            var xorByteArray = new ByteArray(result);
+            return xorByteArray.ToHex();
         }
     }
 }
