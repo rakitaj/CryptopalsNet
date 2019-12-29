@@ -23,7 +23,7 @@ namespace CryptopalsNet.Core
 
         public static bool IsValid(string hex)
         {
-            return hex.Length % 2 == 0 && hex.All(c => HexString.IsCharacterHex(c));
+            return hex != null && hex.Length % 2 == 0 && hex.All(c => HexString.IsCharacterHex(c));
         }
 
         public static bool IsCharacterHex(char c)

@@ -58,16 +58,30 @@ namespace CryptopalsNet.Core
             return new ByteArray(bytes);
         }
 
-        public HexString XorAgainst(ByteArray other)
+        public ByteArray FixedLengthXOR(ByteArray other)
         {
+            if(other == null || this.Bytes.Count != other.Bytes.Count)
+            {
+                throw new ArgumentException($"ByteArray other is either null or does not have the same count.");
+            }
             var result = new List<byte>();
             for(int i = 0; i < this.Bytes.Count; i++)
             {
                 int xorByte = this.Bytes[i] ^ other.Bytes[i];
                 result.Add(Convert.ToByte(xorByte));
             }
-            var xorByteArray = new ByteArray(result);
-            return new HexString(xorByteArray.ToHex());
+            return new ByteArray(result);
+        }
+
+        public ByteArray SingleCharacterXOR(char xor)
+        {
+            var result = new List<byte>();
+            foreach(var b in this.Bytes)
+            {
+                int xorByte = b ^ xor;
+                result.Add(Convert.ToByte(xorByte));
+            }
+            return new ByteArray(result);
         }
     }
 }
