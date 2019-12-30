@@ -44,5 +44,13 @@ namespace CoreTests
             var byteArray = new ByteArray(bytes);
             Assert.AreEqual(expected, byteArray.ToString());
         }
+
+        [TestCase("ICE", "Hello, world!", new byte[] { 1, 38, 41, 37, 44, 105, 105, 52, 42, 59, 47, 33, 104 })]
+        public void ByteArray_RepeatingKeyXOR(string xorKey, string target, byte[] expected)
+        {
+            var byteArray = ByteArray.FromAscii(target);
+            var actual = byteArray.RepeatingKeyXOR(xorKey);
+            Assert.AreEqual(expected, actual.Bytes);
+        }
     }
 }

@@ -39,5 +39,23 @@ namespace CoreTests.Challenges
             var actual = Set1.FindEnglishStringSingleCharXor(input);
             Assert.AreEqual("Now that the party is jumping\n", actual.OriginalText);
         }
+
+        [Test]
+        public void Challenge_5_Implement_Repeating_Key_XOR_part1()
+        {
+            var input1 = "Burning 'em, if you ain't quick and nimble\n\rI go crazy when I hear a cymbal";
+            var expected1 = "0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272\n\ra282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f";
+            var actual1 = ByteArray.FromAscii(input1).RepeatingKeyXOR("ICE").ToHex();
+            Assert.AreEqual(expected1, actual1);
+        }
+
+        //[Test]
+        //public void Challenge_5_Implement_Repeating_Key_XOR_part2()
+        //{
+        //    var input2 = "I go crazy when I hear a cymbal";
+        //    var expected2 = "a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f";
+        //    var actual2 = ByteArray.FromAscii(input2).RepeatingKeyXOR("ICE").ToHex();
+        //    Assert.AreEqual(expected2, actual2);
+        //}
     }
 }

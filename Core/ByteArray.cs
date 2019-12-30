@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace CryptopalsNet.Core
 {
@@ -34,7 +35,7 @@ namespace CryptopalsNet.Core
 
         public override string ToString()
         {
-            return System.Text.Encoding.ASCII.GetString(this.Bytes.ToArray());
+            return Encoding.ASCII.GetString(this.Bytes.ToArray());
         }
 
         public string ToBase64()
@@ -60,6 +61,12 @@ namespace CryptopalsNet.Core
                 var substring = hex.Substring(i, 2);
                 bytes.Add(Convert.ToByte(substring, 16));
             }
+            return new ByteArray(bytes);
+        }
+
+        public static ByteArray FromAscii(string ascii)
+        {
+            var bytes = Encoding.ASCII.GetBytes(ascii);
             return new ByteArray(bytes);
         }
 
@@ -92,6 +99,21 @@ namespace CryptopalsNet.Core
         public ByteArray SingleCharacterXOR(char xor)
         {
             return this.SingleCharacterXOR((int)xor);
+        }
+
+        public ByteArray RepeatingKeyXOR(string xorKey)
+        {
+            int bytesCount = 0;
+            int keyCount = 0;
+            var bytes = new List<byte>();
+            while(bytesCount < this.Bytes.Count)
+            {
+                var b = this.Bytes[bytesCount] ^ xorKey[keyCount];
+                bytesCount += 1;
+                keyCount = (keyCount + 1) % xorKey.Length;
+                bytes.Add(Convert.ToByte(b));
+            }
+            return new ByteArray(bytes);
         }
     }
 }
