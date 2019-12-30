@@ -6,7 +6,7 @@ namespace CryptopalsNet.Core
 {
     public static class CryptoConstants
     {
-        public static string AsciiChars => "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public static string AsciiChars => "0123456789 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         public static Dictionary<char, double> LetterFrequency => new Dictionary<char, double> {
                     { 'E', 12.0 },

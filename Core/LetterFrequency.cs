@@ -15,6 +15,8 @@ namespace CryptopalsNet.Core
 
         public double DifferenceFromEnglish { get; private set; }
 
+        public double PercentageAsciiChars { get; private set; }
+
         public LetterFrequency(string input)
         {
             this.OriginalText = input;
@@ -27,6 +29,19 @@ namespace CryptopalsNet.Core
                 letterFrequency[letterKvp.Key] =  (double)count / total;
             }
             this.LetterFrequencyDict = letterFrequency;
+        }
+
+        public void CalculatePercentageAsciiChars()
+        {
+            int nonAsciiChars = 0;
+            foreach(var letter in this.OriginalText)
+            {
+                if(!CryptoConstants.AsciiChars.Contains(letter))
+                {
+                    nonAsciiChars += 1;
+                }
+            }
+            this.PercentageAsciiChars = 1 - ((double)nonAsciiChars / this.OriginalText.Length);
         }
 
         public void CalculateDifferenceFromEnglish()

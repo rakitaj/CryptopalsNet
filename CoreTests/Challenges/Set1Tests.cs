@@ -29,7 +29,7 @@ namespace CoreTests.Challenges
         {
             var hexInput = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
             var actual = Set1.SingleCharXorDecoder(hexInput);
-            Assert.AreEqual("Cooking MC's like a pound of bacon".ToLower(), actual.OriginalText.ToLower());
+            Assert.AreEqual("Cooking MC's like a pound of bacon", actual.OriginalText);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace CoreTests.Challenges
         {
             var input = System.IO.File.ReadAllLines("..\\..\\..\\ChallengesData\\set1-problem3.txt");
             var actual = Set1.FindEnglishStringSingleCharXor(input);
-            Assert.AreEqual("Now that the party is jumping*".ToLower(), actual.OriginalText.ToLower());
+            Assert.AreEqual("Now that the party is jumping\n", actual.OriginalText);
         }
     }
 }

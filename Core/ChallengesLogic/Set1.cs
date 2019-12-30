@@ -16,24 +16,24 @@ namespace CryptopalsNet.Core.ChallengesLogic
                 var byteArray = ByteArray.FromHex(inputHex);
                 var xordString = byteArray.SingleCharacterXOR(byteValue).ToString();
                 var letterFrequency = new LetterFrequency(xordString);
-                letterFrequency.CalculateDifferenceFromEnglish();
+                letterFrequency.CalculatePercentageAsciiChars();
                 letterFreqs.Add(Tuple.Create(letterFrequency, byteValue));
             }
-            return letterFreqs.OrderBy(tpl => Math.Abs(tpl.Item1.DifferenceFromEnglish)).First().Item1;
+            return letterFreqs.OrderBy(tpl => tpl.Item1.PercentageAsciiChars).Last().Item1;
         }
 
         public static LetterFrequency FindEnglishStringSingleCharXor(string[] hexStrings)
         {
-            var lowestDifference = Tuple.Create<double, LetterFrequency>(double.MaxValue, null);
+            var mostAsciiChars = Tuple.Create<double, LetterFrequency>(0, null);
             foreach(var hex in hexStrings)
             {
                 var letterFrequency = Set1.SingleCharXorDecoder(hex);
-                if (Math.Abs(letterFrequency.DifferenceFromEnglish) < lowestDifference.Item1)
+                if (letterFrequency.PercentageAsciiChars > mostAsciiChars.Item1)
                 {
-                    lowestDifference = Tuple.Create(Math.Abs(letterFrequency.DifferenceFromEnglish), letterFrequency);
+                    mostAsciiChars = Tuple.Create(letterFrequency.PercentageAsciiChars, letterFrequency);
                 }
             }
-            return lowestDifference.Item2;
+            return mostAsciiChars.Item2;
         }
     }
 }
