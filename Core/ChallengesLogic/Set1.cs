@@ -35,5 +35,28 @@ namespace CryptopalsNet.Core.ChallengesLogic
             }
             return mostAsciiChars.Item2;
         }
+
+        public static string BreakRepeatingKeyXOR(string base64string)
+        {
+            byte[] data = Convert.FromBase64String(base64string);
+            var byteArray = new ByteArray(data);
+            var mostLikelyKey = Set1.RepeatingKeyXORKeysize(byteArray);
+            var splitBytes = new List<byte[]>();
+            throw new NotImplementedException();
+        }
+
+        public static int RepeatingKeyXORKeysize(ByteArray byteArray)
+        {
+            var keySizes = new SortedList<int, double>();
+            for (int i = 2; i <= 40; i++)
+            {
+                var first = byteArray.Bytes.Skip(0).Take(i);
+                var second = byteArray.Bytes.Skip(i).Take(i);
+                var hammingDistance = new HammingDistance(new ByteArray(first)).Against(new ByteArray(second));
+                var normalizedDistance = (double)hammingDistance / i;
+                keySizes.Add(i, normalizedDistance);
+            }
+            return keySizes.OrderBy(kvp => kvp.Value).First().Key;
+        }
     }
 }

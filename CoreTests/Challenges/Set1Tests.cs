@@ -48,5 +48,13 @@ namespace CoreTests.Challenges
             var actual1 = ByteArray.FromAscii(input1).RepeatingKeyXOR("ICE").ToHex();
             Assert.AreEqual(expected1, actual1);
         }
+
+        [Test]
+        [Ignore("Working on code to solve set 1 challenge 6.")]
+        public void Challenge_6_Break_Repeating_Key_XOR()
+        {
+            var input = System.IO.File.ReadAllText("..\\..\\..\\ChallengesData\\set1-problem6.txt");
+            var actual = Set1.BreakRepeatingKeyXOR(input);
+        }
     }
 }
