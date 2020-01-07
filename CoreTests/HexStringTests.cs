@@ -16,7 +16,7 @@ namespace CoreTests
         [TestCase('4', true)]
         public void HexString_IsCharacterHex(char c, bool expected)
         {
-            Assert.AreEqual(expected, HexString.IsCharacterHex(c));
+            Assert.That(expected, Is.EqualTo(HexString.IsCharacterHex(c)));
         }
 
         [TestCase("Hello world!", false)]
@@ -25,7 +25,7 @@ namespace CoreTests
         [TestCase("1c011ff", false)]
         public void HexString_IsValid(string hex, bool expected)
         {
-            Assert.AreEqual(expected, HexString.IsValid(hex));
+            Assert.That(expected, Is.EqualTo(HexString.IsValid(hex)));
         }
     }
 }

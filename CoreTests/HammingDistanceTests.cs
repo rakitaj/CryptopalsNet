@@ -14,7 +14,7 @@ namespace CoreTests
             var first = ByteArray.FromAscii("this is a test");
             var second = ByteArray.FromAscii("wokka wokka!!!");
             var hammingDistance = new HammingDistance(first);
-            Assert.AreEqual(37, hammingDistance.Against(second));
+            Assert.That(hammingDistance.Against(second), Is.EqualTo(37));
         }
     }
 }

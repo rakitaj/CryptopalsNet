@@ -12,10 +12,12 @@ namespace CoreTests
         public void ToCharacterCount_HelloWorld()
         {
             var characterCount = "Hello, world!".ToCharacterCount();
-            Assert.AreEqual(1, characterCount['H']);
-            Assert.AreEqual(1, characterCount['!']);
-            Assert.AreEqual(1, characterCount[' ']);
-            Assert.AreEqual(2, characterCount['o']);
+            Assert.Multiple(() => {
+                Assert.That(1, Is.EqualTo(characterCount['H']));
+                Assert.That(1, Is.EqualTo(characterCount['!']));
+                Assert.That(1, Is.EqualTo(characterCount[' ']));
+                Assert.That(2, Is.EqualTo(characterCount['o']));
+            });
         }
     }
 }

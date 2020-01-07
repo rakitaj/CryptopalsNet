@@ -13,10 +13,12 @@ namespace CoreTests
         {
             var strings = new string[] { "Zero", "One", "Two", "Three" };
             var chunks = strings.ToChunks(2);
-            Assert.AreEqual(chunks[0][0], "Zero");
-            Assert.AreEqual(chunks[0][1], "One");
-            Assert.AreEqual(chunks[1][0], "Two"); 
-            Assert.AreEqual(chunks[1][1], "Three");
+            Assert.Multiple(() => {
+                Assert.That(chunks[0][0], Is.EqualTo("Zero"));
+                Assert.That(chunks[0][1], Is.EqualTo("One"));
+                Assert.That(chunks[1][0], Is.EqualTo("Two"));
+                Assert.That(chunks[1][1], Is.EqualTo("Three"));
+            });
         }
 
         [Test]
@@ -24,11 +26,14 @@ namespace CoreTests
         {
             var strings = new string[] { "Zero", "One", "Two", "Three", "Four" };
             var chunks = strings.ToChunks(2);
-            Assert.AreEqual(chunks[0][0], "Zero");
-            Assert.AreEqual(chunks[0][1], "One");
-            Assert.AreEqual(chunks[1][0], "Two");
-            Assert.AreEqual(chunks[1][1], "Three");
-            Assert.AreEqual(chunks[2][0], "Four");
+            Assert.Multiple(() =>
+            {
+                Assert.That(chunks[0][0], Is.EqualTo("Zero"));
+                Assert.That(chunks[0][1], Is.EqualTo("One"));
+                Assert.That(chunks[1][0], Is.EqualTo("Two"));
+                Assert.That(chunks[1][1], Is.EqualTo("Three"));
+                Assert.That(chunks[2][0], Is.EqualTo("Four"));
+            });
         }
 
         [Test]
@@ -36,7 +41,7 @@ namespace CoreTests
         {
             var strings = new string[0];
             var chunks = strings.ToChunks(1);
-            Assert.AreEqual(new List<string>(), chunks);
+            Assert.That(chunks, Is.EqualTo(new List<string>()));
         }
 
         [Test]
