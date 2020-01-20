@@ -18,10 +18,10 @@ namespace CryptopalsNet.Core.ChallengesLogic
             {
                 var byteArray = ByteArray.FromHex(hex);
                 var decryptedText = XorBreaker.SingleCharXor(byteArray, XorBreaker.BestPercentageAscii);
-                if (decryptedText.BackingLetterFreq.PercentageAsciiChars > bestAsciiCharsPercentage)
+                if (decryptedText.PercentageAsciiChars > bestAsciiCharsPercentage)
                 {
-                    bestAsciiCharsPercentage = decryptedText.BackingLetterFreq.PercentageAsciiChars;
-                    bestLetterFrequency = decryptedText.BackingLetterFreq;
+                    bestAsciiCharsPercentage = decryptedText.PercentageAsciiChars;
+                    bestLetterFrequency = decryptedText;
                 }
             }
             return bestLetterFrequency;

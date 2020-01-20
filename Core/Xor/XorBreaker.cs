@@ -11,31 +11,26 @@ namespace CryptopalsNet.Core.Xor
 
         public static DecryptedText<byte> SingleCharXor(ByteArray byteArray, OrderingMethod orderingMethod)
         {
-            if(byteArray == null)
-            {
-                throw new ArgumentNullException(nameof(byteArray));
-            }
-
             var decryptedTexts = new List<DecryptedText<byte>>();
             for (int byteValue = 0; byteValue < 256; byteValue++)
             {
                 var xordString = byteArray.SingleCharacterXOR(byteValue).ToString();
-                var letterFrequency = new LetterFrequency(xordString);
-                letterFrequency.CalculatePercentageAsciiChars();
-                letterFrequency.CalculateDifferenceFromEnglish();
-                decryptedTexts.Add(new DecryptedText<byte>(letterFrequency.OriginalText, Convert.ToByte(byteValue), letterFrequency));
+                var decryptedText = new DecryptedText<byte>(xordString, Convert.ToByte(byteValue));
+                decryptedText.CalculatePercentageAsciiChars();
+                decryptedText.CalculateDifferenceFromEnglish();
+                decryptedTexts.Add(decryptedText);
             }
             return orderingMethod.Invoke(decryptedTexts);
         }
 
         public static DecryptedText<byte> BestPercentageAscii(List<DecryptedText<byte>> decryptedTexts)
         {
-            return decryptedTexts.OrderBy(dt => dt.BackingLetterFreq.PercentageAsciiChars).Last();
+            return decryptedTexts.OrderBy(dt => dt.PercentageAsciiChars).Last();
         }
 
         public static DecryptedText<byte> BestEnglishLetterFreq(List<DecryptedText<byte>> decryptedTexts)
         {
-            return decryptedTexts.OrderBy(dt => dt.BackingLetterFreq.DifferenceFromEnglish).First();
+            return decryptedTexts.OrderBy(dt => dt.DifferenceFromEnglish).First();
         }
     }
 }

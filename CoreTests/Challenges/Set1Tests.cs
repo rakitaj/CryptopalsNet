@@ -32,7 +32,7 @@ namespace CoreTests.Challenges
         {
             var hexInput = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
             var byteArray = ByteArray.FromHex(hexInput);
-            var actual = XorBreaker.SingleCharXor(byteArray, XorBreaker.BestPercentageAscii);
+            var actual = XorBreaker.SingleCharXor(byteArray, XorBreaker.BestEnglishLetterFreq);
             Assert.That(actual.PlainText, Is.EqualTo("Cooking MC's like a pound of bacon"));
         }
 
