@@ -37,6 +37,16 @@ namespace CoreTests
         }
 
         [Test]
+        public void ToChunks_LargeArraySmallChunkSize()
+        {
+            var bytes = new byte[1234];
+            var chunks = bytes.ToChunks(10);
+            Assert.That(chunks.Count, Is.EqualTo(124));
+            Assert.That(chunks[0].Count, Is.EqualTo(10));
+            Assert.That(chunks[123].Count, Is.EqualTo(4));
+        }
+
+        [Test]
         public void ToChunks_ArrayWithZeroSize()
         {
             var strings = new string[0];

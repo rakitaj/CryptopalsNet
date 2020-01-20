@@ -9,6 +9,7 @@ namespace CryptopalsNet.Core
     public class LetterFrequency
     {
         public string OriginalText { get; }
+
         public Dictionary<char, int> CharacterCounts { get; }
 
         public Dictionary<char, double> LetterFrequencyDict { get; }

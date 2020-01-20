@@ -14,12 +14,11 @@ namespace CryptopalsNet.Core.Extensions
                 throw new InvalidOperationException("Zero and negative numbers are not valid chunk sizes.");
             }
             var result = new List<List<T>>();
-            var chunkLength = list.Count / chunkSize;
             int i = 0;
             while(i < list.Count)
             {
                 var chunk = new List<T>();
-                for(int j = 0; j < chunkLength && i < list.Count; j++, i++)
+                for(int j = 0; j < chunkSize && i < list.Count; j++, i++)
                 {
                     chunk.Add(list[i]);
                 }

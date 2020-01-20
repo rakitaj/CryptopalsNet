@@ -1,6 +1,7 @@
 ﻿using System;
 using CryptopalsNet.Core;
 using CryptopalsNet.Core.ChallengesLogic;
+using CryptopalsNet.Core.Xor;
 using NUnit.Framework;
 
 namespace CoreTests.Challenges
@@ -30,8 +31,9 @@ namespace CoreTests.Challenges
         public void Challenge_3_SingleByte_XOR_Cipher()
         {
             var hexInput = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
-            var actual = Set1.SingleCharXorDecoder(hexInput);
-            Assert.That(actual.OriginalText, Is.EqualTo("Cooking MC's like a pound of bacon"));
+            var byteArray = ByteArray.FromHex(hexInput);
+            var actual = XorBreaker.SingleCharXor(byteArray, XorBreaker.BestPercentageAscii);
+            Assert.That(actual.PlainText, Is.EqualTo("Cooking MC's like a pound of bacon"));
         }
 
         [Test]
@@ -52,11 +54,12 @@ namespace CoreTests.Challenges
         }
 
         [Test]
-        [Ignore("Working on code to solve set 1 challenge 6.")]
+        //[Ignore("Working on code to solve set 1 challenge 6.")]
         public void Challenge_6_Break_Repeating_Key_XOR()
         {
             var input = System.IO.File.ReadAllText("..\\..\\..\\ChallengesData\\set1-problem6.txt");
             var actual = Set1.BreakRepeatingKeyXOR(input);
+            Assert.That(actual, Is.Not.Null);
         }
     }
 }

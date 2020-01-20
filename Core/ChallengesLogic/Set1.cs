@@ -1,48 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using CryptopalsNet.Core.Extensions;
+using CryptopalsNet.Core.Xor;
 
 namespace CryptopalsNet.Core.ChallengesLogic
 {
     public static class Set1
     {
-        public static LetterFrequency SingleCharXorDecoder(string inputHex)
-        {
-            var letterFreqs = new List<Tuple<LetterFrequency, int>>();
-            foreach(var byteValue in Enumerable.Range(0, 255))
-            {
-                var byteArray = ByteArray.FromHex(inputHex);
-                var xordString = byteArray.SingleCharacterXOR(byteValue).ToString();
-                var letterFrequency = new LetterFrequency(xordString);
-                letterFrequency.CalculatePercentageAsciiChars();
-                letterFreqs.Add(Tuple.Create(letterFrequency, byteValue));
-            }
-            return letterFreqs.OrderBy(tpl => tpl.Item1.PercentageAsciiChars).Last().Item1;
-        }
+        
 
         public static LetterFrequency FindEnglishStringSingleCharXor(string[] hexStrings)
         {
-            var mostAsciiChars = Tuple.Create<double, LetterFrequency>(0, null);
+            double bestAsciiCharsPercentage = 0;
+            LetterFrequency bestLetterFrequency = null;
             foreach(var hex in hexStrings)
             {
-                var letterFrequency = Set1.SingleCharXorDecoder(hex);
-                if (letterFrequency.PercentageAsciiChars > mostAsciiChars.Item1)
+                var byteArray = ByteArray.FromHex(hex);
+                var decryptedText = XorBreaker.SingleCharXor(byteArray, XorBreaker.BestPercentageAscii);
+                if (decryptedText.BackingLetterFreq.PercentageAsciiChars > bestAsciiCharsPercentage)
                 {
-                    mostAsciiChars = Tuple.Create(letterFrequency.PercentageAsciiChars, letterFrequency);
+                    bestAsciiCharsPercentage = decryptedText.BackingLetterFreq.PercentageAsciiChars;
+                    bestLetterFrequency = decryptedText.BackingLetterFreq;
                 }
             }
-            return mostAsciiChars.Item2;
+            return bestLetterFrequency;
         }
 
         public static string BreakRepeatingKeyXOR(string base64string)
         {
             byte[] data = Convert.FromBase64String(base64string);
             var byteArray = new ByteArray(data);
-            var mostLikelyKey = Set1.RepeatingKeyXORKeysize(byteArray);
-            var splitBytes = new List<byte[]>();
-            throw new NotImplementedException();
+            var mostLikelyKeySize = Set1.RepeatingKeyXORKeysize(byteArray);
+            var splitBytes = data.ToChunks(mostLikelyKeySize);
+
+            var decryptedTexts = new List<DecryptedText<byte>>();
+            foreach(var chunk in splitBytes)
+            {
+                var chunkBytes = new ByteArray(chunk);
+                var decryptedText = XorBreaker.SingleCharXor(chunkBytes, XorBreaker.BestEnglishLetterFreq);
+                decryptedTexts.Add(decryptedText);
+            }
+
+            string result = String.Empty;
+            foreach(var dt in decryptedTexts)
+            {
+                result = result + dt.PlainText;
+            }
+            return result;
         }
 
         public static int RepeatingKeyXORKeysize(ByteArray byteArray)
@@ -57,6 +62,26 @@ namespace CryptopalsNet.Core.ChallengesLogic
                 keySizes.Add(i, normalizedDistance);
             }
             return keySizes.OrderBy(kvp => kvp.Value).First().Key;
+        }
+
+        public static List<List<byte>> TransposeBytes(List<List<byte>> byteChunks)
+        {
+            var transposedBytets = new List<List<byte>>();
+            for(int i = 0; i < byteChunks.Count; i++)
+            {
+                transposedBytets.Add(Set1.GetByteN(byteChunks, i));
+            }
+            return transposedBytets;
+        }
+
+        public static List<byte> GetByteN(List<List<byte>> byteChunks, int n)
+        {
+            var result = new List<byte>();
+            foreach(var byteChunk in byteChunks)
+            {
+                result.Add(byteChunk[n]);
+            }
+            return result;
         }
     }
 }
