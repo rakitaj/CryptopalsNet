@@ -34,11 +34,13 @@ namespace CryptopalsNet.Core.ChallengesLogic
             var mostLikelyKeySize = Set1.RepeatingKeyXORKeysize(byteArray);
             var splitBytes = data.ToChunks(mostLikelyKeySize);
 
+            var transposedBytes = Set1.TransposeBytes(splitBytes, mostLikelyKeySize);
+
             var decryptedTexts = new List<DecryptedText<byte>>();
-            foreach(var chunk in splitBytes)
+
+            foreach (var transposedChunk in transposedBytes)
             {
-                var chunkBytes = new ByteArray(chunk);
-                var decryptedText = XorBreaker.SingleCharXor(chunkBytes, XorBreaker.BestEnglishLetterFreq);
+                var decryptedText = XorBreaker.SingleCharXor(new ByteArray(transposedChunk), XorBreaker.BestEnglishLetterFreq);
                 decryptedTexts.Add(decryptedText);
             }
 
@@ -64,24 +66,15 @@ namespace CryptopalsNet.Core.ChallengesLogic
             return keySizes.OrderBy(kvp => kvp.Value).First().Key;
         }
 
-        public static List<List<byte>> TransposeBytes(List<List<byte>> byteChunks)
+        public static List<List<byte>> TransposeBytes(List<List<byte>> byteChunks, int n)
         {
             var transposedBytets = new List<List<byte>>();
-            for(int i = 0; i < byteChunks.Count; i++)
+            for(int i = 0; i < n; i++)
             {
-                transposedBytets.Add(Set1.GetByteN(byteChunks, i));
+                var transposedChunk = byteChunks.Where(bc => bc.Count == n).Select(bc => bc[i]).ToList();
+                transposedBytets.Add(transposedChunk);
             }
             return transposedBytets;
-        }
-
-        public static List<byte> GetByteN(List<List<byte>> byteChunks, int n)
-        {
-            var result = new List<byte>();
-            foreach(var byteChunk in byteChunks)
-            {
-                result.Add(byteChunk[n]);
-            }
-            return result;
         }
     }
 }
