@@ -42,12 +42,12 @@ namespace CryptopalsNet.Core.ChallengesLogic
                 decryptedTexts.Add(decryptedText);
             }
 
-            string result = String.Empty;
-            foreach(var dt in decryptedTexts)
-            {
-                result = result + dt.PlainText;
-            }
-            return result;
+            List<byte> decryptionKey = decryptedTexts.Select(dt => dt.DecryptionKey).ToList();
+
+            var xorDecrypt = new XorDecrypt(byteArray);
+            var resultBytes = xorDecrypt.DecryptWithRepeatingKey(new ByteArray(decryptionKey));
+
+            return resultBytes.ToString();
         }
 
         public static int RepeatingKeyXORKeysize(ByteArray byteArray)

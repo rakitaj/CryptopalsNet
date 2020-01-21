@@ -55,9 +55,26 @@ namespace CryptopalsNet.Core
         public void CalculateDifferenceFromEnglish()
         {
             double difference = 0;
-            foreach(var frequencyKvp in this.LetterFrequencyDict)
+            var charPercentages = new Dictionary<char, double>();
+            foreach(var charCountKvp in this.CharacterCounts)
             {
-                difference += (frequencyKvp.Value - CryptoConstants.LetterFrequency[frequencyKvp.Key]);
+                charPercentages[charCountKvp.Key] = (double)charCountKvp.Value / this.OriginalText.Length;
+            }
+
+            foreach(var charPercentageKvp in charPercentages)
+            {
+                if (CryptoConstants.AsciiChars.Contains(charPercentageKvp.Key))
+                {
+                    if (CryptoConstants.LetterFrequency.ContainsKey(charPercentageKvp.Key))
+                    {
+                        difference += Math.Abs(charPercentageKvp.Value - CryptoConstants.LetterFrequency[charPercentageKvp.Key]);
+                    }
+                }
+                else
+                {
+                    difference += charPercentageKvp.Value;
+                }
+                
             }
             this.DifferenceFromEnglish = difference;
         }

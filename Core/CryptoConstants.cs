@@ -6,34 +6,34 @@ namespace CryptopalsNet.Core
 {
     public static class CryptoConstants
     {
-        public static string AsciiChars => "0123456789 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public static string AsciiChars => "0123456789 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\n";
 
         public static Dictionary<char, double> LetterFrequency => new Dictionary<char, double> {
-                    { 'E', 12.0 },
-                    { 'T', 9.10 },
-                    { 'A', 8.12 },
-                    { 'O', 7.68 },
-                    { 'I', 7.31 },
-                    { 'N', 6.95 },
-                    { 'S', 6.28 },
-                    { 'R', 6.02 },
-                    { 'H', 5.92 },
-                    { 'D', 4.32 },
-                    { 'L', 3.98 },
-                    { 'U', 2.88 },
-                    { 'C', 2.71 },
-                    { 'M', 2.61 },
-                    { 'F', 2.30 },
-                    { 'Y', 2.11 },
-                    { 'W', 2.09 },
-                    { 'G', 2.03 },
-                    { 'P', 1.82 },
-                    { 'B', 1.49 },
-                    { 'V', 1.11 },
-                    { 'K', 0.69 },
-                    { 'X', 0.17 },
-                    { 'Q', 0.11 },
-                    { 'J', 0.10 },
-                    { 'Z', 0.07 } };
+                    { 'E', .120 },
+                    { 'T', .0910 },
+                    { 'A', .0812 },
+                    { 'O', .0768 },
+                    { 'I', .0731 },
+                    { 'N', .0695 },
+                    { 'S', .0628 },
+                    { 'R', .0602 },
+                    { 'H', .0592 },
+                    { 'D', .0432 },
+                    { 'L', .0398 },
+                    { 'U', .0288 },
+                    { 'C', .0271 },
+                    { 'M', .0261 },
+                    { 'F', .0230 },
+                    { 'Y', .0211 },
+                    { 'W', .0209 },
+                    { 'G', .0203 },
+                    { 'P', .0182 },
+                    { 'B', .0149 },
+                    { 'V', .0111 },
+                    { 'K', .0069 },
+                    { 'X', .0017 },
+                    { 'Q', .0011 },
+                    { 'J', .0010 },
+                    { 'Z', .0007 } };
     }
 }
