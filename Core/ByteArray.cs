@@ -101,16 +101,16 @@ namespace CryptopalsNet.Core
             return this.SingleCharacterXOR((int)xor);
         }
 
-        public ByteArray RepeatingKeyXOR(string xorKey)
+        public ByteArray RepeatingKeyXOR(ByteArray xorKey)
         {
             int bytesCount = 0;
             int keyCount = 0;
             var bytes = new List<byte>();
             while(bytesCount < this.Bytes.Count)
             {
-                var b = this.Bytes[bytesCount] ^ xorKey[keyCount];
+                var b = this.Bytes[bytesCount] ^ xorKey.Bytes[keyCount];
                 bytesCount += 1;
-                keyCount = (keyCount + 1) % xorKey.Length;
+                keyCount = (keyCount + 1) % xorKey.Bytes.Count;
                 bytes.Add(Convert.ToByte(b));
             }
             return new ByteArray(bytes);

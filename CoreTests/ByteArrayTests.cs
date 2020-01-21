@@ -49,7 +49,7 @@ namespace CoreTests
         public void ByteArray_RepeatingKeyXOR(string xorKey, string target, byte[] expected)
         {
             var byteArray = ByteArray.FromAscii(target);
-            var actual = byteArray.RepeatingKeyXOR(xorKey);
+            var actual = byteArray.RepeatingKeyXOR(ByteArray.FromAscii("ICE"));
             Assert.That(expected, Is.EqualTo(actual.Bytes));
         }
     }

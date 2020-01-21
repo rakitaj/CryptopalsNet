@@ -46,10 +46,9 @@ namespace CryptopalsNet.Core.ChallengesLogic
 
             List<byte> decryptionKey = decryptedTexts.Select(dt => dt.DecryptionKey).ToList();
 
-            var xorDecrypt = new XorDecrypt(byteArray);
-            var resultBytes = xorDecrypt.DecryptWithRepeatingKey(new ByteArray(decryptionKey));
+            var decryptedBytes = byteArray.RepeatingKeyXOR(new ByteArray(decryptionKey));
 
-            return resultBytes.ToString();
+            return decryptedBytes.ToString();
         }
 
         public static int RepeatingKeyXORKeysize(ByteArray byteArray)
